@@ -16,9 +16,4 @@ public class Klass {
         return "Class "+number;
     }
 
-
-
-//    public boolean equalKlass(Klass klass){
-//        return number == klass.number;
-//    }
 }
