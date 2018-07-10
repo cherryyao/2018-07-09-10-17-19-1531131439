@@ -1,9 +1,9 @@
 package practice08;
 
 public class Student extends Person{
-    Klass klass;
-    public Student(String name, int age,Klass klass) {
-        super(name, age);
+    private Klass klass;
+    public Student(int id,String name, int age,Klass klass) {
+        super(id,name, age);
         this.klass = klass;
     }
 
@@ -18,7 +18,19 @@ public class Student extends Person{
         return klass.getNumber();
     }
 
+    @Override
     public String introduce() {
-        return (super.introduce()+" I am a Student. I am at Class "+klass.number+".");
+        String introduceStr = super.introduce() + " I am a Student.";
+        if (isLeaderInKlass())
+            introduceStr += " I am Leader of Class " + this.getKlassName() + ".";
+        else
+            introduceStr += " I am at Class " + this.getKlassName() + ".";
+        return introduceStr;
     }
+    public boolean isLeaderInKlass() {
+        return this.getId() == this.klass.getLeaderId();
+    }
+
+
+
 }

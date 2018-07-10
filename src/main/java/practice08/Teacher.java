@@ -1,35 +1,49 @@
 package practice08;
 
 public class Teacher extends Person{
-    Boolean klassStaus;
-    public Teacher(String name, int age) {
-        super(name, age);
+    private Boolean klassStaus;
+    private Klass klass;
+
+    public Teacher(int id,String name, int age) {
+        super(id,name, age);
         this.klassStaus=false;
     }
-    Klass klass;
-    public Teacher(String name, int age, Klass klass) {
-        super(name, age);
+    public Teacher(int id,String name, int age, Klass klass) {
+        super(id,name, age);
         this.klass = klass;
         this.klassStaus = true;
     }
+
+    @Override
+    public String introduce() {
+        return String.format(super.introduce() + " I am a Teacher. I teach %s.", getKlassDisplayName());
+    }
+
+    public String introduceWith(Student student) {
+        String isTeachStudentStr = isTeaching(student) ?
+                " I teach " + student.getName() + "." :
+                " I don't teach " + student.getName() + ".";
+        return String.format(super.introduce() + " I am a Teacher.%s",
+                isTeachStudentStr);
+    }
+    public String getKlassDisplayName() {
+        if (this.klassStaus) {
+            return this.klass.getDisplayName();
+        }
+        return "No Class";
+    }
+
+    public boolean isTeaching(Student student) {
+        if (this.klass.getDisplayName().equals(student.getKlassName())) {
+            return true;
+        }
+        return false;
+    }
+
     public Klass getKlass() {
         return klass;
     }
     public void setKlass(Klass klass) {
         this.klass = klass;
-    }
-    public String introduce() {
-        if(klassStaus){
-            return String.format("%s I am a Teacher. I teach Class %s.",super.introduce(), klass.getNumber());
-        }else{
-            return (super.introduce()+" I am a Teacher. I teach No Class.");
-        }
-    }
-    public String introduceWith(Student student){
-        if( klass.number == student.getKlassName()){
-            return (super.introduce()+" I am a Teacher. I teach "+student.name+".");
-        }else{
-            return (super.introduce()+" I am a Teacher. I don't teach Jerry.");
-        }
     }
 }
